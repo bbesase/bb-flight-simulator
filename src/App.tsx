@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { Card, CardContent } from './Common/Card';
 import FlightService from './Services/FlightService';
+import RIGHT_ARROW from './images/arrow.png';
 
 export default function App() {
   const [aircraftInformation, setAircraftInformation] = useState<any>();
   const [flightInformation, setFlightInformation] = useState<any>();
+  const [flightRotations, setFlightRotations] = useState<any>([]);
   const flightService = FlightService;
 
   useEffect(() => {
@@ -22,7 +24,6 @@ export default function App() {
     const getFlightInformation = async () => {
       try {
         const getFlightInformationApiResult = await flightService.getFlights();
-        console.log('flight', getFlightInformationApiResult)
         setFlightInformation(getFlightInformationApiResult);
       }
       catch (err) {
@@ -39,6 +40,15 @@ export default function App() {
     const percentage = Math.floor((randomNumberOfSeatsTaken / economySeats) * 100);
     return `(${percentage} %)`;
   }
+
+  const addFlightToRotation = (flightInfo: any) => {
+    setFlightRotations(
+      [
+        ...flightRotations, 
+        flightInfo
+      ]
+    )
+  };
 
 
   return (
@@ -69,14 +79,44 @@ export default function App() {
             </div>
           </div>
 
-          <div className='rotation'></div>
+          <div className='rotation'>
+            <div className='title'>Rotations</div>
+            <div className='rotation-list'>
+              {flightRotations?.map((rotation: any, i: number) => {
+                return (
+                  <Card key={i}>
+                    <CardContent>
+                      <div className='card-padding'>
+                        <div className='flight-information'>
+                          Flight: {rotation.id} 
+                        </div>
+                        <div className='flight-data'>
+                          <div className='origin'>
+                            <div>{rotation.origin}</div>
+                            <div>{rotation.readable_departure}</div>
+                          </div>  
+                          <div className='arrow'>
+                            <img src={RIGHT_ARROW} />
+                          </div>
+                          <div className='destination'>
+                            <div>{rotation.destination}</div>
+                            <div>{rotation.readable_arrival}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )
+                }) }
+            </div>
+          </div>
 
           <div className='flights'>
             <div className='title'>Flights</div>
             <div className='flight-list'>
               { flightInformation?.data.map((flight:any, i: number) => {
                 return (
-                  <Card key={i}>
+                  <Card key={i} onCardClick={() => addFlightToRotation(flight)}>
                     <CardContent>
                       <div className='card-padding'>
                         <div className='flight-name'>
