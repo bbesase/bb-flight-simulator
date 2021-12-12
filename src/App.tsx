@@ -5,21 +5,32 @@ import FlightService from './Services/FlightService';
 
 export default function App() {
   const [aircraftInformation, setAircraftInformation] = useState<any>();
+  const [flightInformation, setFlightInformation] = useState<any>();
   const flightService = FlightService;
 
   useEffect(() => {
-    const getFlightInformation = async () => {
+    const getAircraftInformation = async () => {
       try {
-        const getAircraftInformation = await flightService.getAirCrafts();
-        console.log('AC', getAircraftInformation)
-        setAircraftInformation(getAircraftInformation);
-        console.log('info', aircraftInformation)
+        const getAircraftInformationApiResult = await flightService.getAirCrafts();
+        setAircraftInformation(getAircraftInformationApiResult);
       }
       catch (err) {
         console.log('Error retrieving aircraft information::App.tsx', err)
       }
     };
 
+    const getFlightInformation = async () => {
+      try {
+        const getFlightInformationApiResult = await flightService.getFlights();
+        console.log('flight', getFlightInformationApiResult)
+        setFlightInformation(getFlightInformationApiResult);
+      }
+      catch (err) {
+        console.log('Error retrieving flight information::App.tsx', err)
+      }
+    }
+
+    getAircraftInformation();
     getFlightInformation();
   }, [])
 
@@ -49,6 +60,36 @@ export default function App() {
                         </div>
                         <div className='aircraft-capacity'>
                           {getRandomPercentage(airCraft.economySeats)}  
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )
+              }) }
+            </div>
+          </div>
+
+          <div className='rotation'></div>
+
+          <div className='flights'>
+            <div className='title'>Flights</div>
+            <div className='flight-list'>
+              { flightInformation?.data.map((flight:any, i: number) => {
+                return (
+                  <Card key={i}>
+                    <CardContent>
+                      <div className='card-padding'>
+                        <div className='flight-name'>
+                          {flight?.id}  
+                        </div>
+                        <div className='flight-locations'>
+                          <div className='left'>{flight.origin}</div>  
+                          <div className='right'>{flight.destination}</div>
+                        </div>
+
+                        <div className='flight-times'>
+                          <div className='left'>{flight.readable_departure}</div>  
+                          <div className='right'>{flight.readable_arrival}</div>
                         </div>
                       </div>
                     </CardContent>
