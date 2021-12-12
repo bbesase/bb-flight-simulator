@@ -5,15 +5,20 @@ const FlightService = class FlighService {
   async getAirCrafts() {
     try {
      const result = await axios.get('https://infinite-dawn-93085.herokuapp.com/aircrafts');
-     console.log('res', result.data)
      return result.data;
-        // .then((response: any) => {
-        //   console.log('aircraft response', response.data);
-        //   return response.data;
-        // })
     }
     catch (err) {
       console.log('Error retrieving aircraft information::FlightService.tsx', err)
+    }
+  }
+
+  async getFlights() {
+    try {
+     const result = await axios.get('https://infinite-dawn-93085.herokuapp.com/flights');
+     return result.data;
+    }
+    catch (err) {
+      console.log('Error retrieving flight information::FlightService.tsx', err)
     }
   }
 }

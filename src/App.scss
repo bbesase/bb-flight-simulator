@@ -3,12 +3,25 @@
   justify-content: center;
 }
 
+@mixin column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin title-font {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+@mixin space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
 .App {
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  margin: 2rem;
+  @include column;
 
   .top-container {
     display: flex;
@@ -26,23 +39,20 @@
       display: flex;
 
       .aircrafts {
-        display: flex;
+        @include column;
         width: 100%;
-        flex: .3;
-        flex-direction: column;
+        flex: .2;
 
         .title {
           width: 100%;
           @include center-justify;
-          font-size: 22px;
-          font-weight: 500;
+          @include title-font;
         }
 
         .aircraft-list {
           padding: 1rem;
           height: 90%;
-          display: flex;
-          flex-direction: column;
+          @include column;
 
           .card-padding {
             padding: 1rem;
@@ -53,6 +63,47 @@
 
             .aircraft-capacity {
               @include center-justify;
+            }
+          }
+        }
+      }
+
+      .rotation {
+        @include column;
+        flex: .6;
+        height: 100%;
+      }
+
+      .flights {
+        @include column;
+        height: 100%;
+        flex: .2;
+
+        .title {
+          width: 100%;
+          @include center-justify;
+          @include title-font;
+        }
+
+        .flight-list {
+          padding: 1rem;
+          max-height: 100%;
+          @include column;
+          overflow-y: scroll;
+
+          .card-padding {
+            padding: 1rem;
+
+            .flight-name {
+              @include center-justify;
+            }
+
+            .flight-locations {
+              @include space-between;
+            }
+
+            .flight-times {
+              @include space-between;
             }
           }
         }
