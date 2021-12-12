@@ -11,7 +11,9 @@ export default function App() {
     const getFlightInformation = async () => {
       try {
         const getAircraftInformation = await flightService.getAirCrafts();
+        console.log('AC', getAircraftInformation)
         setAircraftInformation(getAircraftInformation);
+        console.log('info', aircraftInformation)
       }
       catch (err) {
         console.log('Error retrieving aircraft information::App.tsx', err)
@@ -21,15 +23,42 @@ export default function App() {
     getFlightInformation();
   }, [])
 
+  const getRandomPercentage = (economySeats:number) => {
+    const randomNumberOfSeatsTaken = Math.floor(Math.random() * (economySeats - 1) + 1);
+    const percentage = Math.floor((randomNumberOfSeatsTaken / economySeats) * 100);
+    return `(${percentage} %)`;
+  }
+
 
   return (
     <div className="App">
-      <Card>
-        <CardContent>
-          TEST
+      <div className='top-container'></div>
 
-        </CardContent>
-      </Card>
+      <div className='flight-info-container'>
+        <div className='columns'>
+          <div className='aircrafts'>
+            <div className='title'>Aircrafts</div>
+            <div className='aircraft-list'>
+              { aircraftInformation?.data.map((airCraft:any, i: number) => {
+                return (
+                  <Card key={i}>
+                    <CardContent>
+                      <div className='card-padding'>
+                        <div className='aircraft-name'>
+                          {airCraft?.type}  
+                        </div>
+                        <div className='aircraft-capacity'>
+                          {getRandomPercentage(airCraft.economySeats)}  
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )
+              }) }
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
