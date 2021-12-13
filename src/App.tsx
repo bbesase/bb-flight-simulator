@@ -16,7 +16,7 @@ export default function App() {
     const getAircraftInformation = async () => {
       try {
         const getAircraftInformationApiResult = await flightService.getAirCrafts();
-        setAircraftInformation(getAircraftInformationApiResult);
+        setAircraftInformation(getAircraftInformationApiResult.data);
       }
       catch (err) {
         console.log('Error retrieving aircraft information::App.tsx', err)
@@ -26,7 +26,7 @@ export default function App() {
     const getFlightInformation = async () => {
       try {
         const getFlightInformationApiResult = await flightService.getFlights();
-        setFlightInformation(getFlightInformationApiResult);
+        setFlightInformation(getFlightInformationApiResult.data);
       }
       catch (err) {
         console.log('Error retrieving flight information::App.tsx', err)
@@ -82,6 +82,11 @@ export default function App() {
     }
   }
 
+  const removeSelectedFlightFromFlightList = (selectedFlightId: string) => {
+    const flightListWithRemovedFlight = flightInformation.filter((flight: any) => selectedFlightId != flight.id);
+    setFlightInformation(flightListWithRemovedFlight);
+  };
+
   const addFlightToRotation = (flightInfo: any) => {
     if (flightRotations.length > 0) {
 
@@ -97,6 +102,7 @@ export default function App() {
             ]
       
             getFlightUtilization(flightRotationsArray);
+            removeSelectedFlightFromFlightList(flightInfo.id);
           }
           else {
             alert(`The plane is not currently in that city! Please select a city that has ${flightRotations[flightRotations.length - 1].destination} as the departure city`)
@@ -117,6 +123,7 @@ export default function App() {
       ]
 
       getFlightUtilization(flightRotationsArray);
+      removeSelectedFlightFromFlightList(flightInfo.id);
     }
   };
 
@@ -127,9 +134,9 @@ export default function App() {
 
       <div className='flight-info-container'>
         <div className='columns'>
-          <AircraftList aircraftListData={aircraftInformation?.data} flightUtilization={flightUtilization} />
+          <AircraftList aircraftListData={aircraftInformation} flightUtilization={flightUtilization} />
           <FlightRotationList flightRotationData={flightRotations} />
-          <FlightList flightListData={flightInformation?.data} addFlightHandler={addFlightToRotation}/>
+          <FlightList flightListData={flightInformation} addFlightHandler={addFlightToRotation}/>
         </div>
       </div>
     </div>

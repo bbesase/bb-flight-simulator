@@ -6,6 +6,10 @@
   height: 100%;
   flex: .2;
 
+  .placeholder {
+    @include center-justify;
+  }
+
   .title {
     width: 100%;
     @include center-justify;

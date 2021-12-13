@@ -22,26 +22,30 @@ export const FlightList = (props: FlightListProps) => {
     <div className='flights'>
       <div className='title'>Flights</div>
       <div className='flight-list'>
-        { flightListData?.map((flight:any, i: number) => {
-          return (
-            <Card key={i} onCardClick={() => addFlightHandler(flight)}>
-              <CardHeader>{flight?.id}</CardHeader>
-              <CardContent>
-                <div className='card-padding'>
-                  <div className='flight-locations'>
-                    <div className='left'>{flight.origin}</div>  
-                    <div className='right'>{flight.destination}</div>
-                  </div>
+        { flightListData ? (
+          flightListData?.map((flight:any, i: number) => {
+            return (
+              <Card key={i} onCardClick={() => addFlightHandler(flight)}>
+                <CardHeader>{flight?.id}</CardHeader>
+                <CardContent>
+                  <div className='card-padding'>
+                    <div className='flight-locations'>
+                      <div className='left'>{flight.origin}</div>  
+                      <div className='right'>{flight.destination}</div>
+                    </div>
 
-                  <div className='flight-times'>
-                    <div className='left'>{flight.readable_departure}</div>  
-                    <div className='right'>{flight.readable_arrival}</div>
+                    <div className='flight-times'>
+                      <div className='left'>{flight.readable_departure}</div>  
+                      <div className='right'>{flight.readable_arrival}</div>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          )
-        }) }
+                </CardContent>
+              </Card>
+            )
+          })) 
+      :
+        <div className='placeholder'>Loading Flight Data...</div> 
+      }
       </div>
     </div>
   )
