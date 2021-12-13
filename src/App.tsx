@@ -8,6 +8,7 @@ export default function App() {
   const [aircraftInformation, setAircraftInformation] = useState<any>();
   const [flightInformation, setFlightInformation] = useState<any>();
   const [flightRotations, setFlightRotations] = useState<any>([]);
+  const [flightUtilization, setFlightUtilizaion] = useState<string>('0%');
   const flightService = FlightService;
 
   useEffect(() => {
@@ -35,10 +36,15 @@ export default function App() {
     getFlightInformation();
   }, [])
 
-  const getRandomPercentage = (economySeats:number) => {
-    const randomNumberOfSeatsTaken = Math.floor(Math.random() * (economySeats - 1) + 1);
-    const percentage = Math.floor((randomNumberOfSeatsTaken / economySeats) * 100);
-    return `(${percentage} %)`;
+  const getFlightUtilization = (rotationArray: any) => {
+    const secondsInDay = 86400;
+    const totalSecondsOfFlightTime = rotationArray.reduce((a:any,b:any) => {
+      return a + (b.arrivaltime - b.departuretime);
+    }, 0);
+
+    const percentage = Math.floor((totalSecondsOfFlightTime / secondsInDay) * 100);
+    setFlightUtilizaion(`${percentage}%`);
+    setFlightRotations(rotationArray);
   }
 
   const arePlanesGroundedByMidnight = (arrival: number, departure: number) => {
@@ -84,12 +90,12 @@ export default function App() {
         if (isTurnAroundTimeAtLeastTwentyMinutes(flightInfo.departuretime)) {
           // Check to make sure the departure city is the same as the arrival of the previous flight
           if (isFlightInCorrectCity(flightInfo.origin)) {
-            setFlightRotations(
-              [
-                ...flightRotations, 
-                flightInfo
-              ]
-            )
+            const flightRotationsArray = [
+              ...flightRotations, 
+              flightInfo
+            ]
+      
+            getFlightUtilization(flightRotationsArray);
           }
           else {
             alert(`The plane is not currently in that city! Please select a city that has ${flightRotations[flightRotations.length - 1].destination} as the departure city`)
@@ -104,12 +110,12 @@ export default function App() {
       }
     }
     else {
-      setFlightRotations(
-        [
-          ...flightRotations, 
-          flightInfo
-        ]
-      )
+      const flightRotationsArray = [
+        ...flightRotations, 
+        flightInfo
+      ]
+
+      getFlightUtilization(flightRotationsArray);
     }
   };
 
@@ -132,7 +138,7 @@ export default function App() {
                           {airCraft?.type}  
                         </div>
                         <div className='aircraft-capacity'>
-                          {getRandomPercentage(airCraft.economySeats)}  
+                          {flightUtilization}  
                         </div>
                       </div>
                     </CardContent>
