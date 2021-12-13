@@ -1,3 +1,5 @@
+@import './_sizing';
+
 @mixin center-justify {
   display: flex;
   justify-content: center;
@@ -9,7 +11,7 @@
 }
 
 @mixin title-font {
-  font-size: 22px;
+  font-size: $HEADER_FONT_SIZE;
   font-weight: 500;
 }
 

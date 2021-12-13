@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent } from "../../Common/Components/Card";
+import { Card, CardContent, CardHeader } from "../../Common/Components/Card";
 import './FlightList.scss';
 
 /**
@@ -25,11 +25,9 @@ export const FlightList = (props: FlightListProps) => {
         { flightListData?.map((flight:any, i: number) => {
           return (
             <Card key={i} onCardClick={() => addFlightHandler(flight)}>
+              <CardHeader>{flight?.id}</CardHeader>
               <CardContent>
                 <div className='card-padding'>
-                  <div className='flight-name'>
-                    {flight?.id}  
-                  </div>
                   <div className='flight-locations'>
                     <div className='left'>{flight.origin}</div>  
                     <div className='right'>{flight.destination}</div>

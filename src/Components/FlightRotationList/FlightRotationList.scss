@@ -1,4 +1,5 @@
 @import '../../Common/styles/_mixins';
+@import '../../Common/styles/_sizing';
 
 .rotation {
   @include column;
@@ -12,17 +13,17 @@
   }
 
   .rotation-list {
-    padding: 1rem;
+    padding: $BASE_SIZE;
     height: 100%;
     @include column;
 
     .card-padding {
-      padding: 1rem;
+      padding: $BASE_SIZE;
 
       .flight-information {
         display: flex;
         justify-content: flex-start;
-        margin-bottom: 1rem;
+        margin-bottom: $BASE_SIZE;
       }
 
       .flight-data {
