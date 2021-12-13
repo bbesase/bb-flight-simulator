@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import './App.scss';
-import { Card, CardContent } from './Common/Card';
 import FlightService from './Services/FlightService';
-import RIGHT_ARROW from './images/arrow.png';
+import { AircraftList } from './Components/AircraftList/AircraftList';
+import { FlightList } from './Components/FlightList/FlightList';
+import { FlightRotationList } from './Components/FlightRotationList/FlightRotationList';
+import './App.scss';
 
 export default function App() {
   const [aircraftInformation, setAircraftInformation] = useState<any>();
@@ -126,87 +127,9 @@ export default function App() {
 
       <div className='flight-info-container'>
         <div className='columns'>
-          <div className='aircrafts'>
-            <div className='title'>Aircrafts</div>
-            <div className='aircraft-list'>
-              { aircraftInformation?.data.map((airCraft:any, i: number) => {
-                return (
-                  <Card key={i}>
-                    <CardContent>
-                      <div className='card-padding'>
-                        <div className='aircraft-name'>
-                          {airCraft?.type}  
-                        </div>
-                        <div className='aircraft-capacity'>
-                          {flightUtilization}  
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )
-              }) }
-            </div>
-          </div>
-
-          <div className='rotation'>
-            <div className='title'>Rotations</div>
-            <div className='rotation-list'>
-              {flightRotations?.map((rotation: any, i: number) => {
-                return (
-                  <Card key={i}>
-                    <CardContent>
-                      <div className='card-padding'>
-                        <div className='flight-information'>
-                          Flight: {rotation.id} 
-                        </div>
-                        <div className='flight-data'>
-                          <div className='origin'>
-                            <div>{rotation.origin}</div>
-                            <div>{rotation.readable_departure}</div>
-                          </div>  
-                          <div className='arrow'>
-                            <img src={RIGHT_ARROW} />
-                          </div>
-                          <div className='destination'>
-                            <div>{rotation.destination}</div>
-                            <div>{rotation.readable_arrival}</div>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )
-                }) }
-            </div>
-          </div>
-
-          <div className='flights'>
-            <div className='title'>Flights</div>
-            <div className='flight-list'>
-              { flightInformation?.data.map((flight:any, i: number) => {
-                return (
-                  <Card key={i} onCardClick={() => addFlightToRotation(flight)}>
-                    <CardContent>
-                      <div className='card-padding'>
-                        <div className='flight-name'>
-                          {flight?.id}  
-                        </div>
-                        <div className='flight-locations'>
-                          <div className='left'>{flight.origin}</div>  
-                          <div className='right'>{flight.destination}</div>
-                        </div>
-
-                        <div className='flight-times'>
-                          <div className='left'>{flight.readable_departure}</div>  
-                          <div className='right'>{flight.readable_arrival}</div>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )
-              }) }
-            </div>
-          </div>
+          <AircraftList aircraftListData={aircraftInformation?.data} flightUtilization={flightUtilization} />
+          <FlightRotationList flightRotationData={flightRotations} />
+          <FlightList flightListData={flightInformation?.data} addFlightHandler={addFlightToRotation}/>
         </div>
       </div>
     </div>

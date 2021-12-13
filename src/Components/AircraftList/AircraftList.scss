@@ -1,0 +1,31 @@
+@import '../../Common/styles/_mixins';
+
+.aircrafts {
+  @include column;
+  width: 100%;
+  flex: .2;
+
+  .title {
+    width: 100%;
+    @include center-justify;
+    @include title-font;
+  }
+
+  .aircraft-list {
+    padding: 1rem;
+    height: 100%;
+    @include column;
+
+    .card-padding {
+      padding: 1rem;
+
+      .aircraft-name {
+        @include center-justify;
+      }
+
+      .aircraft-capacity {
+        @include center-justify;
+      }
+    }
+  }
+}
