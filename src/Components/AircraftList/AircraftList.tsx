@@ -22,20 +22,25 @@ export const AircraftList = (props: AircraftListProps) => {
     <div className='aircrafts'>
       <div className='title'>Aircrafts</div>
       <div className='aircraft-list'>
-        { aircraftListData?.map((airCraft:any, i: number) => {
-          return (
-            <Card key={i}>
-              <CardHeader>{airCraft?.type}</CardHeader>
-              <CardContent>
-                <div className='card-padding'>
-                  <div className='aircraft-capacity'>
-                    {flightUtilization}  
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          )
-        }) }
+        { aircraftListData ? (
+            aircraftListData?.map((airCraft:any, i: number) => {
+              return (
+                <Card key={i}>
+                  <CardHeader>{airCraft?.type}</CardHeader>
+                  <CardContent>
+                    <div className='card-padding'>
+                      <div className='aircraft-capacity'>
+                        {flightUtilization}  
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              )
+        }))
+      
+      : 
+        <div className='placeholder'>Loading Aircraft Data...</div>
+      }
       </div>
     </div>
   )
