@@ -77,6 +77,7 @@ export default function App() {
 
   const addFlightToRotation = (flightInfo: any) => {
     if (flightRotations.length > 0) {
+
       // Check to make sure arrival time is before midnight
       if (arePlanesGroundedByMidnight(flightInfo.arrivaltime, flightInfo.departuretime)) {
         // Check to make sure turnaround time is at least 20 minutes
@@ -90,11 +91,17 @@ export default function App() {
               ]
             )
           }
-          alert(`The plane is not currently in that city! Please select a city that has ${flightRotations[flightRotations.length - 1].destination} as the departure city`)
+          else {
+            alert(`The plane is not currently in that city! Please select a city that has ${flightRotations[flightRotations.length - 1].destination} as the departure city`)
+          }
         }
-        alert(`The plane needs more time to prepare for the next flight! Please select a flight that has more than 20 minutes between arrival time and departure time`)
+        else {
+          alert(`The plane needs more time to prepare for the next flight! Please select a flight that has more than 20 minutes between arrival time and departure time`)
+        }
       }
-      alert(`The plane needs to be grounded by midnight!`)
+      else {
+        alert(`The plane needs to be grounded by midnight!`)
+      }
     }
     else {
       setFlightRotations(
