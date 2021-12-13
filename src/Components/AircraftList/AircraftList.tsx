@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent } from "../../Common/Components/Card";
+import { Card, CardContent, CardHeader } from "../../Common/Components/Card";
 import './AircraftList.scss';
 
 /**
@@ -25,11 +25,9 @@ export const AircraftList = (props: AircraftListProps) => {
         { aircraftListData?.map((airCraft:any, i: number) => {
           return (
             <Card key={i}>
+              <CardHeader>{airCraft?.type}</CardHeader>
               <CardContent>
                 <div className='card-padding'>
-                  <div className='aircraft-name'>
-                    {airCraft?.type}  
-                  </div>
                   <div className='aircraft-capacity'>
                     {flightUtilization}  
                   </div>

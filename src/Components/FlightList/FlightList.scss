@@ -1,4 +1,5 @@
 @import '../../Common/styles/_mixins';
+@import '../../Common/styles/_sizing';
 
 .flights {
   @include column;
@@ -12,13 +13,13 @@
   }
 
   .flight-list {
-    padding: 1rem;
+    padding: $BASE_SIZE;
     max-height: 100%;
     @include column;
-    overflow-y: scroll;
+    overflow-y: auto;
 
     .card-padding {
-      padding: 1rem;
+      padding: $BASE_SIZE;
 
       .flight-name {
         @include center-justify;

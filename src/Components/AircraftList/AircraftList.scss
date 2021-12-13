@@ -1,4 +1,5 @@
 @import '../../Common/styles/_mixins';
+@import '../../Common/styles/_sizing';
 
 .aircrafts {
   @include column;
@@ -12,12 +13,12 @@
   }
 
   .aircraft-list {
-    padding: 1rem;
+    padding: $BASE_SIZE;
     height: 100%;
     @include column;
 
     .card-padding {
-      padding: 1rem;
+      padding: $BASE_SIZE;
 
       .aircraft-name {
         @include center-justify;
