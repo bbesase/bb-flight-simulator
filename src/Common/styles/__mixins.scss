@@ -1,0 +1,19 @@
+@mixin center-justify {
+  display: flex;
+  justify-content: center;
+}
+
+@mixin column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin title-font {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+@mixin space-between {
+  display: flex;
+  justify-content: space-between;
+}

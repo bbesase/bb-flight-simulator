@@ -1,22 +1,4 @@
-@mixin center-justify {
-  display: flex;
-  justify-content: center;
-}
-
-@mixin column {
-  display: flex;
-  flex-direction: column;
-}
-
-@mixin title-font {
-  font-size: 22px;
-  font-weight: 500;
-}
-
-@mixin space-between {
-  display: flex;
-  justify-content: space-between;
-}
+@import './Common/styles/_mixins';
 
 .App {
   width: 100%;
@@ -38,125 +20,60 @@
       height: 80%;
       display: flex;
 
-      .aircrafts {
-        @include column;
-        width: 100%;
-        flex: .2;
+      // .rotation {
+      //   @include column;
+      //   flex: .6;
+      //   height: 100%;
 
-        .title {
-          width: 100%;
-          @include center-justify;
-          @include title-font;
-        }
+      //   .title {
+      //     width: 100%;
+      //     @include center-justify;
+      //     @include title-font;
+      //   }
 
-        .aircraft-list {
-          padding: 1rem;
-          height: 100%;
-          @include column;
+      //   .rotation-list {
+      //     padding: 1rem;
+      //     height: 100%;
+      //     @include column;
 
-          .card-padding {
-            padding: 1rem;
+      //     .card-padding {
+      //       padding: 1rem;
 
-            .aircraft-name {
-              @include center-justify;
-            }
+      //       .flight-information {
+      //         display: flex;
+      //         justify-content: flex-start;
+      //         margin-bottom: 1rem;
+      //       }
 
-            .aircraft-capacity {
-              @include center-justify;
-            }
-          }
-        }
-      }
+      //       .flight-data {
+      //         width: 100%;
+      //         display: flex;
 
-      .rotation {
-        @include column;
-        flex: .6;
-        height: 100%;
+      //         .origin {
+      //           @include column();
+      //           flex: .33;
+      //         }
 
-        .title {
-          width: 100%;
-          @include center-justify;
-          @include title-font;
-        }
+      //         .arrow {
+      //           @include column();
+      //           flex: .33;
+      //           align-items: center;
 
-        .rotation-list {
-          padding: 1rem;
-          height: 100%;
-          @include column;
+      //           img {
+      //             width: 150px;
+      //             height: 50px;
+      //           }
+      //         }
 
-          .card-padding {
-            padding: 1rem;
-
-            .flight-information {
-              display: flex;
-              justify-content: flex-start;
-              margin-bottom: 1rem;
-            }
-
-            .flight-data {
-              width: 100%;
-              display: flex;
-
-              .origin {
-                @include column();
-                flex: .33;
-              }
-
-              .arrow {
-                @include column();
-                flex: .33;
-                align-items: center;
-
-                img {
-                  width: 150px;
-                  height: 50px;
-                }
-              }
-
-              .destination {
-                @include column();
-                flex: .33;
-                align-items: end;
-              }
-            }
-          }
-        }
-      }
-
-      .flights {
-        @include column;
-        height: 100%;
-        flex: .2;
-
-        .title {
-          width: 100%;
-          @include center-justify;
-          @include title-font;
-        }
-
-        .flight-list {
-          padding: 1rem;
-          max-height: 100%;
-          @include column;
-          overflow-y: scroll;
-
-          .card-padding {
-            padding: 1rem;
-
-            .flight-name {
-              @include center-justify;
-            }
-
-            .flight-locations {
-              @include space-between;
-            }
-
-            .flight-times {
-              @include space-between;
-            }
-          }
-        }
-      }
+      //         .destination {
+      //           @include column();
+      //           flex: .33;
+      //           align-items: end;
+      //         }
+      //       }
+      //     }
+      //   }
+      // }
     }
   }
 }

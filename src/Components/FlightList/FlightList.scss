@@ -1,0 +1,36 @@
+@import '../../Common/styles/_mixins';
+
+.flights {
+  @include column;
+  height: 100%;
+  flex: .2;
+
+  .title {
+    width: 100%;
+    @include center-justify;
+    @include title-font;
+  }
+
+  .flight-list {
+    padding: 1rem;
+    max-height: 100%;
+    @include column;
+    overflow-y: scroll;
+
+    .card-padding {
+      padding: 1rem;
+
+      .flight-name {
+        @include center-justify;
+      }
+
+      .flight-locations {
+        @include space-between;
+      }
+
+      .flight-times {
+        @include space-between;
+      }
+    }
+  }
+}
