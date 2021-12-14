@@ -4,6 +4,7 @@ import { AircraftList } from './Components/AircraftList/AircraftList';
 import { FlightList } from './Components/FlightList/FlightList';
 import { FlightRotationList } from './Components/FlightRotationList/FlightRotationList';
 import './App.scss';
+import FlightRotationService from './Services/FlightRotationService';
 
 export default function App() {
   const [aircraftInformation, setAircraftInformation] = useState<any>();
@@ -11,6 +12,7 @@ export default function App() {
   const [flightRotations, setFlightRotations] = useState<any>([]);
   const [flightUtilization, setFlightUtilizaion] = useState<string>('0%');
   const flightService = FlightService;
+  const flightRotationService = FlightRotationService;
 
   useEffect(() => {
     const getAircraftInformation = async () => {
@@ -48,39 +50,39 @@ export default function App() {
     setFlightRotations(rotationArray);
   }
 
-  const arePlanesGroundedByMidnight = (arrival: number, departure: number) => {
-    const midnight = 86400; //seconds in a day
+  // const arePlanesGroundedByMidnight = (arrival: number, departure: number) => {
+  //   const midnight = 86400; //seconds in a day
 
-    if ((arrival < midnight) && (departure < midnight)) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
+  //   if ((arrival < midnight) && (departure < midnight)) {
+  //     return true;
+  //   }
+  //   else {
+  //     return false;
+  //   }
+  // }
 
-  const isTurnAroundTimeAtLeastTwentyMinutes = (departure: number) => {
-    const previousFlightArrivalTime = flightRotations[flightRotations.length - 1].arrivaltime;
-    const twentyMintuesToSeconds = 1200;
+  // const isTurnAroundTimeAtLeastTwentyMinutes = (departure: number) => {
+  //   const previousFlightArrivalTime = flightRotations[flightRotations.length - 1].arrivaltime;
+  //   const twentyMintuesToSeconds = 1200;
 
-    if (departure >= (previousFlightArrivalTime + twentyMintuesToSeconds)) {
-      return true
-    }
-    else {
-      return false;
-    }
-  }
+  //   if (departure >= (previousFlightArrivalTime + twentyMintuesToSeconds)) {
+  //     return true
+  //   }
+  //   else {
+  //     return false;
+  //   }
+  // }
 
-  const isFlightInCorrectCity = (departureCity: string) => {
-    const previousFlightArrivalCity = flightRotations[flightRotations.length - 1].destination;
+  // const isFlightInCorrectCity = (departureCity: string) => {
+  //   const previousFlightArrivalCity = flightRotations[flightRotations.length - 1].destination;
 
-    if (departureCity === previousFlightArrivalCity) {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
+  //   if (departureCity === previousFlightArrivalCity) {
+  //     return true;
+  //   }
+  //   else {
+  //     return false;
+  //   }
+  // }
 
   const removeSelectedFlightFromFlightList = (selectedFlightId: string) => {
     const flightListWithRemovedFlight = flightInformation.filter((flight: any) => selectedFlightId != flight.id);
@@ -91,11 +93,11 @@ export default function App() {
     if (flightRotations.length > 0) {
 
       // Check to make sure arrival time is before midnight
-      if (arePlanesGroundedByMidnight(flightInfo.arrivaltime, flightInfo.departuretime)) {
+      if (flightRotationService.arePlanesGroundedByMidnight(flightInfo.arrivaltime, flightInfo.departuretime)) {
         // Check to make sure turnaround time is at least 20 minutes
-        if (isTurnAroundTimeAtLeastTwentyMinutes(flightInfo.departuretime)) {
+        if (flightRotationService.isTurnAroundTimeAtLeastTwentyMinutes(flightRotations[flightRotations.length - 1], flightInfo.departuretime)) {
           // Check to make sure the departure city is the same as the arrival of the previous flight
-          if (isFlightInCorrectCity(flightInfo.origin)) {
+          if (flightRotationService.isFlightInCorrectCity(flightRotations[flightRotations.length - 1], flightInfo.origin)) {
             const flightRotationsArray = [
               ...flightRotations, 
               flightInfo
@@ -131,12 +133,15 @@ export default function App() {
   return (
     <div className="App">
       <div className='top-container'></div>
-
       <div className='flight-info-container'>
         <div className='columns'>
           <AircraftList aircraftListData={aircraftInformation} flightUtilization={flightUtilization} />
           <FlightRotationList flightRotationData={flightRotations} />
-          <FlightList flightListData={flightInformation} addFlightHandler={addFlightToRotation}/>
+          <FlightList
+            flightListData={flightInformation} 
+            addFlightHandler={addFlightToRotation} 
+            lastSelectedFlight={flightRotations[flightRotations.length - 1]}
+          />
         </div>
       </div>
     </div>

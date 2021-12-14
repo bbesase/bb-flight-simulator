@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, CardContent, CardHeader } from "../../Common/Components/Card";
+import FlightRotationService from '../../Services/FlightRotationService';
 import './FlightList.scss';
 
 /**
@@ -8,6 +9,8 @@ import './FlightList.scss';
  export interface FlightListProps {
   flightListData: any;
   addFlightHandler: (flight: any) => void;
+  canAddToFlightRotation?: boolean;
+  lastSelectedFlight: any;
 }
 
 /**
@@ -16,7 +19,29 @@ import './FlightList.scss';
  * @returns The component
  */
 export const FlightList = (props: FlightListProps) => {
-  const { flightListData, addFlightHandler } = props;
+  const { flightListData, addFlightHandler, canAddToFlightRotation, lastSelectedFlight } = props;
+  const flightRotationService = FlightRotationService;
+
+  const isFlightAvailableToAdd = (flight: any) => {
+    // if there is a selected flight...
+    if (lastSelectedFlight) {
+      // check to make sure we can add the flight
+      if (
+        flightRotationService.arePlanesGroundedByMidnight(flight.arrivaltime, flight.departuretime) &&
+        flightRotationService.isFlightInCorrectCity(lastSelectedFlight, flight.origin) &&
+        flightRotationService.isTurnAroundTimeAtLeastTwentyMinutes(lastSelectedFlight, flight.departuretime)
+      )
+      {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+    else {
+      return true;
+    }
+  };
 
   return (
     <div className='flights'>
@@ -25,7 +50,7 @@ export const FlightList = (props: FlightListProps) => {
         { flightListData ? (
           flightListData?.map((flight:any, i: number) => {
             return (
-              <Card key={i} onCardClick={() => addFlightHandler(flight)}>
+              <Card key={i} onCardClick={() => addFlightHandler(flight)} canAddFlightRotation={isFlightAvailableToAdd(flight)}>
                 <CardHeader>{flight?.id}</CardHeader>
                 <CardContent>
                   <div className='card-padding'>
