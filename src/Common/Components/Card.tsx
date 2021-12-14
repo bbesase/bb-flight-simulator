@@ -1,4 +1,5 @@
 import './Card.scss';
+import classNames from 'classnames';
 
 /**
  * Styles for the component
@@ -14,6 +15,7 @@ export interface CardProps {
   children: any; // The child elements
   cardStyle?: CardStyles; // Optional styles
   onCardClick?: () => void;
+  canAddFlightRotation?: boolean;
 }
 
 /**
@@ -22,9 +24,16 @@ export interface CardProps {
  * @returns The component
  */
 export const Card = (props: CardProps) => {
-  const { cardStyle, children, onCardClick } = props;
+  const { cardStyle, children, onCardClick, canAddFlightRotation } = props;
 
-  return <div className={`bb-card`} style={cardStyle?.containerStyle} onClick={onCardClick}>{children}</div>;
+  const cardClass = classNames({
+    'bb-card': true,
+    'bb-card-available': canAddFlightRotation,
+    'bb-card-unavailable': !canAddFlightRotation,
+    'bb-card-default': canAddFlightRotation === undefined
+  });
+
+  return <div className={cardClass} style={cardStyle?.containerStyle} onClick={onCardClick}>{children}</div>;
 };
 
 /**
