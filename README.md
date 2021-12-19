@@ -47,4 +47,4 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 
 
-For this exercise I decided to get as much functionality in the brief done as possible, while still staying as close to that 3 hour mark as possible. An area that if granted more time I would have focused on more was unit tests. 
+For this exercise I decided to get as much functionality in the brief done as possible, while still staying as close to that 3 hour mark as possible. An area that if granted more time I would have focused on more was unit tests. The application also doesn't look super "pretty" so I would like to spend more time on the look and feel with a user experience perspective.
