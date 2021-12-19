@@ -50,40 +50,6 @@ export default function App() {
     setFlightRotations(rotationArray);
   }
 
-  // const arePlanesGroundedByMidnight = (arrival: number, departure: number) => {
-  //   const midnight = 86400; //seconds in a day
-
-  //   if ((arrival < midnight) && (departure < midnight)) {
-  //     return true;
-  //   }
-  //   else {
-  //     return false;
-  //   }
-  // }
-
-  // const isTurnAroundTimeAtLeastTwentyMinutes = (departure: number) => {
-  //   const previousFlightArrivalTime = flightRotations[flightRotations.length - 1].arrivaltime;
-  //   const twentyMintuesToSeconds = 1200;
-
-  //   if (departure >= (previousFlightArrivalTime + twentyMintuesToSeconds)) {
-  //     return true
-  //   }
-  //   else {
-  //     return false;
-  //   }
-  // }
-
-  // const isFlightInCorrectCity = (departureCity: string) => {
-  //   const previousFlightArrivalCity = flightRotations[flightRotations.length - 1].destination;
-
-  //   if (departureCity === previousFlightArrivalCity) {
-  //     return true;
-  //   }
-  //   else {
-  //     return false;
-  //   }
-  // }
-
   const removeSelectedFlightFromFlightList = (selectedFlightId: string) => {
     const flightListWithRemovedFlight = flightInformation.filter((flight: any) => selectedFlightId != flight.id);
     setFlightInformation(flightListWithRemovedFlight);

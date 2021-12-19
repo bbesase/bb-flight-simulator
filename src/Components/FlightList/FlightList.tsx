@@ -46,11 +46,11 @@ export const FlightList = (props: FlightListProps) => {
   return (
     <div className='flights'>
       <div className='title'>Flights</div>
-      <div className='flight-list'>
+      <div data-testid="flight-list" className='flight-list'>
         { flightListData ? (
           flightListData?.map((flight:any, i: number) => {
             return (
-              <Card key={i} onCardClick={() => addFlightHandler(flight)} canAddFlightRotation={isFlightAvailableToAdd(flight)}>
+              <Card data-testid="flight-card" key={i} onCardClick={() => addFlightHandler(flight)} canAddFlightRotation={isFlightAvailableToAdd(flight)}>
                 <CardHeader>{flight?.id}</CardHeader>
                 <CardContent>
                   <div className='card-padding'>
