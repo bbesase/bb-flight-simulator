@@ -12,6 +12,10 @@
     @include title-font;
   }
 
+  .placeholder {
+    @include center-justify;
+  }
+
   .rotation-list {
     padding: $BASE_SIZE;
     height: 100%;

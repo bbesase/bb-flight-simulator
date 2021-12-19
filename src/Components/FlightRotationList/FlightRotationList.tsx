@@ -22,32 +22,38 @@ export const FlightRotationList = (props: FlightRotationListProps) => {
     <div className='rotation'>
       <div className='title'>Rotations</div>
       <div className='rotation-list'>
-        {flightRotationData?.map((rotation: any, i: number) => {
-          return (
-            <Card key={i}>
-              <CardContent>
-                <div className='card-padding'>
-                  <div className='flight-information'>
-                    Flight: {rotation.id} 
-                  </div>
-                  <div className='flight-data'>
-                    <div className='origin'>
-                      <div>{rotation.origin}</div>
-                      <div>{rotation.readable_departure}</div>
-                    </div>  
-                    <div className='arrow'>
-                      <img src={RIGHT_ARROW} />
+        { flightRotationData ? (
+          flightRotationData?.map((rotation: any, i: number) => {
+            return (
+              <Card key={i}>
+                <CardContent>
+                  <div className='card-padding'>
+                    <div className='flight-information'>
+                      Flight: {rotation.id} 
                     </div>
-                    <div className='destination'>
-                      <div>{rotation.destination}</div>
-                      <div>{rotation.readable_arrival}</div>
+                    <div className='flight-data'>
+                      <div className='origin'>
+                        <div>{rotation.origin}</div>
+                        <div>{rotation.readable_departure}</div>
+                      </div>  
+                      <div className='arrow'>
+                        <img src={RIGHT_ARROW} />
+                      </div>
+                      <div className='destination'>
+                        <div>{rotation.destination}</div>
+                        <div>{rotation.readable_arrival}</div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          )
-          }) }
+                </CardContent>
+              </Card>
+            )
+            }))
+          :
+            <div className='placeholder'>Select a flight to add to the rotation</div>
+
+        }
+        
       </div>
     </div>
   )

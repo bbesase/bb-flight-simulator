@@ -44,3 +44,7 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+
+
+For this exercise I decided to get as much functionality in the brief done as possible, while still staying as close to that 3 hour mark as possible. An area that if granted more time I would have focused on more was unit tests. 
